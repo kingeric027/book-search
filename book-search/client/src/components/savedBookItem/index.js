@@ -15,12 +15,10 @@ export function BookList({ children }) {
       <li className="list-group-item">
         <Container>
           <Row>
-            <Col size="xs-8 sm-9">
               <h3>{props.title}</h3>
               <p>Authors: {props.authors}</p>
               <p>{props.description}</p>
-              <button type="button" className="btn btn-outline-success" id={props.id} onClick = {props.handleSave}>Delete Book</button>
-            </Col>
+              <button onClick = {props.DeleteFunction}>Delete Book</button>
           </Row>
         </Container>
       </li>

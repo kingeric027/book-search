@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
 import { BookList, BookListItem } from "../components/savedBookItem";
+import DeleteBtn from "../components/DeleteBtn/index"
 
 
 class Saved extends Component {
     state = {
-        books:{}
+        books:[]
     };
 
     componentDidMount(){
@@ -15,12 +16,14 @@ class Saved extends Component {
     }
 
     loadBooks = () => {
+        console.log("GET REQUEST")
         API.getSaved()
         .then(res => this.setState( {books:res.data} ))
         .catch(err => console.log(err));
     }
 
     deleteBook = id => {
+        console.log("DELETE REQUEST")
         API.deleteBook(id)
         .then(res => this.loadBooks())
         .catch(err => console.log(err));
@@ -45,13 +48,17 @@ class Saved extends Component {
                 <BookList>
                     {this.state.books.map((book, index) =>{
                         return (
-                            <BookListItem 
+                            <BookListItem
+                            key = {book._id}
                             title = {book.title}
                             authors = {book.authors}
                             href = {book.link}
                             description = {book.description}
                             id = {index}
-                            />
+                            DeleteFunction = {() => this.deleteBook(book._id)}
+                            >
+                            </BookListItem>
+
                         )
                     })}
                 </BookList>
